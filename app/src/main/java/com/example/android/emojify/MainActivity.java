@@ -1,18 +1,18 @@
 /*
-* Copyright (C) 2017 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*  	http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.example.android.emojify;
 
@@ -42,6 +42,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,14 +52,20 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String FILE_PROVIDER_AUTHORITY = "com.example.android.fileprovider";
 
-    @BindView(R.id.image_view) ImageView mImageView;
+    @BindView(R.id.image_view)
+    ImageView mImageView;
 
-    @BindView(R.id.emojify_button) Button mEmojifyButton;
-    @BindView(R.id.share_button) FloatingActionButton mShareFab;
-    @BindView(R.id.save_button) FloatingActionButton mSaveFab;
-    @BindView(R.id.clear_button) FloatingActionButton mClearFab;
+    @BindView(R.id.emojify_button)
+    Button mEmojifyButton;
+    @BindView(R.id.share_button)
+    FloatingActionButton mShareFab;
+    @BindView(R.id.save_button)
+    FloatingActionButton mSaveFab;
+    @BindView(R.id.clear_button)
+    FloatingActionButton mClearFab;
 
-    @BindView(R.id.title_text_view) TextView mTitleTextView;
+    @BindView(R.id.title_text_view)
+    TextView mTitleTextView;
 
     private String mTempPhotoPath;
 
@@ -73,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
         // Bind the views
         ButterKnife.bind(this);
 
-        // TODO (2): Set up Timber
+        // COMPLETED (2): Set up Timber
+        Timber.plant(new Timber.DebugTree());
     }
 
     /**
@@ -98,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+                                           @NonNull int[] grantResults) {
         // Called when you request permission to read and write to external storage
         switch (requestCode) {
             case REQUEST_STORAGE_PERMISSION: {
@@ -181,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Resample the saved image to fit the ImageView
         mResultsBitmap = BitmapUtils.resamplePic(this, mTempPhotoPath);
-        
+
 
         // Detect the faces and overlay the appropriate emoji
         mResultsBitmap = Emojifier.detectFacesandOverlayEmoji(this, mResultsBitmap);
@@ -189,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
         // Set the new bitmap to the ImageView
         mImageView.setImageBitmap(mResultsBitmap);
     }
-
 
 
     /**
