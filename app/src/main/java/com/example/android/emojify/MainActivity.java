@@ -222,8 +222,12 @@ public class MainActivity extends AppCompatActivity {
         // Save the image
         BitmapUtils.saveImage(this, mResultsBitmap);
 
+
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), mResultsBitmap, "Emojify image", "Emojify image");
+        Uri mPublicURI = Uri.parse(path);
+
         // Share the image
-        BitmapUtils.shareImage(this, mTempPhotoPath);
+        BitmapUtils.shareImage(this, mPublicURI);
     }
 
     /**
